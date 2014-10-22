@@ -7,40 +7,26 @@
 //
 
 #import "DetailViewController.h"
+#import <CoreData/CoreData.h> //step 5
 
 @interface DetailViewController ()
+@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker; //step 5
 
 @end
 
 @implementation DetailViewController
 
-#pragma mark - Managing the detail item
-
-- (void)setDetailItem:(id)newDetailItem {
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
-            
-        // Update the view.
-        [self configureView];
-    }
+-(void)viewDidLoad
+{
+    self.title = self.adventurer.name;
 }
 
-- (void)configureView {
-    // Update the user interface for the detail item.
-    if (self.detailItem) {
-        self.detailDescriptionLabel.text = [[self.detailItem valueForKey:@"timeStamp"] description];
-    }
+-(Raid *)createRaid
+{
+    Raid *raid = [NSEntityDescription insertNewObjectForEntityForName:@"Raid" inManagedObjectContext:self.adventurer.managedObjectContext]; //the self.manager.managedObjectContext was something that Max knew about to get the managedObjectContext - otherwise would likely need to create new property of that type and send it here through prepareForSegue?
+    raid.date = self.datePicker.date;
+    return raid;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    [self configureView];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end

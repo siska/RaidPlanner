@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Adventurer.h" //step 4
+#import "Raid.h" //step 5
 
 @interface DetailViewController : UIViewController
 
-@property (strong, nonatomic) id detailItem;
+@property (strong, nonatomic) Adventurer *adventurer;
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+
+-(Raid *)createRaid;
 
 @end
 
