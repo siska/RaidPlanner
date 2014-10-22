@@ -32,10 +32,9 @@ step 1
     - in the first line, we're doing - add later
 
 step 3
-didn't have time for notes - reworking after:
+didn't have time for notes - adding after based on memory:
 
- - added the loadAdventurers method to get the Adventurer from Core Data and reload the tableView with the new data - like yesterday we sorted the data and then assigned it back to the nsarray that we created earlier - we also added the tableView datasource methods
- 
+ - added the loadAdventurers method to get the Adventurer from Core Data and reload the tableView with the new data - like yesterday we sorted the data and then assigned it back to the nsarray that we created earlier - we also added the tableView datasource methods number... and cellForRow... 
  
  
  step 4 
@@ -43,9 +42,19 @@ didn't have time for notes - reworking after:
  - we also added an unwindFromDetailVC segue (didn't do anyhting with it yet) and in storyboard connected the Attend Raid to the exit button to connect it to the unwind segue
  - within the DetailVC.h, we also imported the Adventurer.h class so that we could creat a property of type Adventurer to receive what was sent in the prepare for segue - in the DetailVC.m then, we deleted all the pre loaded stuff and added a viewDidLoad to set the title of the detail VC to the adventurer's name that was passed over
 
+ step 5
+ - this is where we actually set up the relationship between the adventurer and the raids
+ - we imported the Raid.h into the MasterVC.m and then set up the unwind segue - most of the work was done within the DetailVC
+ - in DetailVC.h, we imported the Raid.h so that we could create a helper method - createRaid - this is what will actually create the raid to be associated with an adventurer (called from the unwind segue)
+ - within the DetailVC.m, we imported the CoreData, added an IBOutlet for the datepicker so that we could get the data from it and then implemented the createRaid method which creates a Raid object, sets the raid date to the datePicker date and then returns the date p which is asked for and grabbed during the unwind segue
 
+ - we also updated the storyboard so that the detailedView can show up with the number of raids the adventurer will attend
 
+step 6 
+we're making sure that adventurers cant add multiple instances of the same event (raid)
 
+- first we updated the storyboard - clicked on the datePicker and opened the right column - changed the mode to just date and the date to custom - that way it only shows date within the DetailVC and not the time
+ - we then updated the createRaid method within the DetailVC.m with the code called out therein - we use the NSFetchRequest object inited with "Raid" from Core Data and updated with the predicate method which sets the date to see if an object for that event (an object with the same date) has already been created - if it's already been created, we just return the first object in the array (which should only contain one event array for that date anyway) to the unwind which calls this method
 
 
 
